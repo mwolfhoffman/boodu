@@ -1,8 +1,11 @@
 import "../assets/styles/login.scss";
 import { useEffect } from "react";
 import axios from "axios";
+import * as Cookie from "js-cookie";
+import { useHistory } from "react-router-dom";
 
 function Login() {
+  const history = useHistory();
   const onGithubSuccess = (response: any) => console.log(response);
   const onGithubFailure = (response: any) => console.error(response);
 
@@ -23,14 +26,31 @@ function Login() {
 
       if (process?.env?.REACT_APP_GITHUB_ACCESS_TOKEN_URL) {
         axios
-          .post(process.env.REACT_APP_GITHUB_ACCESS_TOKEN_URL)
+          .post(
+            process.env.REACT_APP_GITHUB_ACCESS_TOKEN_URL,
+            { token },
+            { headers: { "content-type": "application/json" } }
+          )
           .then((response: any) => {
-            if (response.ok) {
-              response.json().then((data: any) => {
-                debugger;
-              });
-            } else {
-              //  TODO: handle error
+            if (response.data) {
+              const tokenStartDelimiter = "access_token";
+              const accessTokenStart = response.data.indexOf(
+                tokenStartDelimiter
+              );
+              if (accessTokenStart > -1) {
+                const tokenEndDelimter = "&scope";
+                const tokenEndIndex = response.data.indexOf(tokenEndDelimter);
+                const accessToken = response.data.slice(
+                  accessTokenStart + tokenStartDelimiter.length + 1,
+                  tokenEndIndex
+                );
+                if (accessToken) {
+                  Cookie.set("access_token", accessToken);
+                  history.push("/dashboard");
+                } else {
+                  history.push("/");
+                }
+              }
             }
           });
       }
