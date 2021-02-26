@@ -1,4 +1,10 @@
+import Navbar from "../components/navbar";
+
 export default function () {
-    return <>Organizations</>;
-  }
-  
+  return (
+    <>
+      <Navbar />
+      <h3>Settings</h3>
+    </>
+  );
+}

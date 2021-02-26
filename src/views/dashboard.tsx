@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import supabase from "../supabase";
 import Navbar from "../components/navbar";
 
+
 export default function () {
   let history = useHistory();
 

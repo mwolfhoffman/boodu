@@ -1,5 +1,6 @@
 import supabase from "../supabase";
 import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function () {
   let history = useHistory();
@@ -15,16 +16,15 @@ export default function () {
 
   const logout = async (e: any) => {
     e.preventDefault();
-    debugger;
     let { error } = await supabase.auth.signOut();
     history.push("/login");
   };
 
   return (
     <div className="topnav" id="myTopnav">
-      <a href="#home">Boodu</a>
-      <a href="#news">Organizations</a>
-      <a href="#contact">Settings</a>
+      <Link to="/">Boodu</Link>
+      <Link to="/organizations">Organizations</Link>
+      <Link to="/settings">Settings</Link>
       <a onClick={(e) => logout(e)}>Logout</a>
       <a
         href="javascript:void(0);"
