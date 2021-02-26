@@ -1,40 +1,37 @@
 import "../assets/styles/login.scss";
 import supabase from "../supabase";
 import { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Login() {
-  let history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const signUpLocal = async (event) => {
     event.preventDefault();
     const { user, session, error } = await supabase.auth.signUp({
-      email: "example@email.com",
-      password: "example-password",
-    });
-  };
-
-  const loginLocal = async (event) => {
-    event.preventDefault();
-    const { user, session, error } = await supabase.auth.signIn({
       email,
       password,
     });
     if (error) {
-      setErrorMessage((current) => (current = error.message));
+      setErrorMessage((current) => (current = error));
     } else {
-      history.push("/dashboard");
+      setSuccessMessage(
+        (current) =>
+          (current =
+            "Success! Please check your email for a confirmation link.")
+      );
     }
   };
 
   return (
     <div className="container">
+      {successMessage ? <div className="alert">{successMessage}</div> : null}
       {errorMessage ? <div className="alert">{errorMessage}</div> : null}
-      <h2>Login</h2>
-      <form onSubmit={(event) => loginLocal(event)}>
+      <h2>Signup</h2>
+      <form onSubmit={(event) => signUpLocal(event)}>
         <div className="container">
           <label htmlFor="uname">
             <b>Email</b>
