@@ -22,6 +22,10 @@ export default function () {
     <>
       <Navbar />
       <h1>Dashboard</h1>
+
+      <div className="content">
+        Sup
+      </div>
     </>
   );
 }

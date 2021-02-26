@@ -28,7 +28,7 @@ function Login() {
 
   return (
     <div className="container">
-      {successMessage ? <div className="alert">{successMessage}</div> : null}
+      {successMessage ? <div className="alert success">{successMessage}</div> : null}
       {errorMessage ? <div className="alert">{errorMessage}</div> : null}
       <h2>Signup</h2>
       <form onSubmit={(event) => signUpLocal(event)}>
