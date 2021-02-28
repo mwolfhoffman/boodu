@@ -3,10 +3,11 @@ import "../assets/styles/organizations.scss";
 import supabase from "../supabase";
 import { useEffect, useState } from "react";
 import User from "../types/User";
+import { Link } from "react-router-dom";
 
 export default function () {
   let [user, setUser] = useState<User | undefined>();
-  let [organizationIds, setOrganizationIds] = useState<string[]>([]);
+  let [projectIds, setProjectIds] = useState<string[]>([]);
 
   const getUser = async () => {
     const res = await supabase.auth.user();
@@ -20,7 +21,7 @@ export default function () {
         .select("id, user_id, organization_id")
         .filter("user_id", "eq", user.id);
       if (data) {
-        setOrganizationIds((o) => (o = data));
+        setProjectIds((o) => (o = data));
       }
     }
   };
@@ -37,20 +38,29 @@ export default function () {
     <>
       <Navbar />
       <div className="header">
-        <h1>Organizations</h1>
-        <p>Manage your teams and organizations.</p>
+        <h1>Projects</h1>
+        <p>Manage Your Projects.</p>
       </div>
 
       <div className="content">
         <div className="row">
-          <div className="col">{user ? user.email : "poop"}</div>
+          <div className="col">{user ? user.email : ""}</div>
         </div>
-        <div className="row">
-          <div className="col">
-            {" "}
-            You have {organizationIds.length} organizations
+
+        {projectIds && projectIds.length ? (
+          <div className="row">
+            <div className="col">
+              {/* TODO: List organization links */}
+              You Have {projectIds.length} Projects.
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="row">
+            <div className="col">
+              Create Your First Project. <Link to="/create">Click Here</Link>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

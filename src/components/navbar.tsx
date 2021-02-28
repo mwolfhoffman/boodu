@@ -23,7 +23,7 @@ export default function () {
   return (
     <div className="topnav" id="myTopnav">
       <Link to="/">Boodu</Link>
-      <Link to="/organizations">Organizations</Link>
+      <Link to="/projects">Projects</Link>
       <Link to="/settings">Settings</Link>
       <a onClick={(e) => logout(e)}>Logout</a>
       <a
