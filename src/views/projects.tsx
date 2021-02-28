@@ -3,9 +3,18 @@ import "../assets/styles/organizations.scss";
 import supabase from "../supabase";
 import { useEffect, useState } from "react";
 import User from "../types/User";
-import { Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useParams,
+  useRouteMatch,
+} from "react-router-dom";
+import CreateProject from "./create-project";
 
 export default function () {
+  let { path, url } = useRouteMatch();
   let [user, setUser] = useState<User | undefined>();
   let [projectIds, setProjectIds] = useState<string[]>([]);
 
@@ -57,11 +66,18 @@ export default function () {
         ) : (
           <div className="row">
             <div className="col">
-              Create Your First Project. <Link to="/create">Click Here</Link>
+              Create Your First Project.{" "}
+              <Link to={`${url}/create`}>Click Here</Link>
             </div>
           </div>
         )}
       </div>
+
+      <Switch>
+        <Route path={`${path}/create`}>
+          <CreateProject />
+        </Route>
+      </Switch>
     </>
   );
 }
