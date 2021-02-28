@@ -26,7 +26,7 @@ function Login() {
     if (error) {
       setErrorMessage((current) => (current = error.message));
     } else {
-      history.push("/dashboard");
+      history.push("/");
     }
   };
 
