@@ -17,8 +17,8 @@ export default function () {
   const getOrganizations = async () => {
     if (user) {
       const { data, error } = await supabase
-        .from("organizations_members")
-        .select("id, user_id, organization_id")
+        .from("project_members")
+        .select("id, user_id, project_id")
         .filter("user_id", "eq", user.id);
       if (data) {
         setProjectIds((o) => (o = data));
