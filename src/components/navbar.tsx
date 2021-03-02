@@ -27,7 +27,6 @@ export default function () {
       <Link to="/settings">Settings</Link>
       <a onClick={(e) => logout(e)}>Logout</a>
       <a
-        href="javascript:void(0);"
         className="icon"
         onClick={(e) => onNavMenuClick(e)}
       >

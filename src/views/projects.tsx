@@ -1,5 +1,5 @@
 import Navbar from "../components/navbar";
-import "../assets/styles/organizations.scss";
+import "../assets/styles/projects.scss";
 import supabase from "../supabase";
 import { useEffect, useState } from "react";
 import User from "../types/User";
@@ -8,12 +8,13 @@ import {
   Switch,
   Route,
   Link,
-  useParams,
+  useLocation,
   useRouteMatch,
 } from "react-router-dom";
 import CreateProject from "./create-project";
 
 export default function () {
+  let location = useLocation();
   let { path, url } = useRouteMatch();
   let [user, setUser] = useState<User | undefined>();
   let [projectIds, setProjectIds] = useState<string[]>([]);
@@ -23,14 +24,22 @@ export default function () {
     setUser((u) => (u = res));
   };
 
-  const getOrganizations = async () => {
+  const getProjects = async (projectIds) => {
+    const { data, error } = await supabase.from("project").select("id, name");
+  };
+
+  const getProjectIds = async () => {
     if (user) {
       const { data, error } = await supabase
-        .from("project_members")
-        .select("id, user_id, project_id")
+        .from("project_member")
+        .select("user_id, project_id")
         .filter("user_id", "eq", user.id);
       if (data) {
-        setProjectIds((o) => (o = data));
+        let projectIds: string[] = [];
+        data.forEach((p: any) => {
+          projectIds.push(p.project_id);
+        });
+        getProjects(projectIds);
       }
     }
   };
@@ -40,7 +49,7 @@ export default function () {
   }, []);
 
   useEffect(() => {
-    getOrganizations();
+    getProjectIds();
   }, [user]);
 
   return (
@@ -53,29 +62,23 @@ export default function () {
 
       <div className="content">
         <div className="row">
-          <div className="col">{user ? user.email : ""}</div>
+          <div className="col">
+            {/* TODO: List organization links */}
+            You Have {projectIds.length || "0"} Projects.
+          </div>
         </div>
-
-        {projectIds && projectIds.length ? (
+        {!location?.pathname.includes("create") ? (
           <div className="row">
             <div className="col">
-              {/* TODO: List organization links */}
-              You Have {projectIds.length} Projects.
+              Create A Project. <Link to={`${url}/create`}>Click Here</Link>
             </div>
           </div>
-        ) : (
-          <div className="row">
-            <div className="col">
-              Create Your First Project.{" "}
-              <Link to={`${url}/create`}>Click Here</Link>
-            </div>
-          </div>
-        )}
+        ) : null}
       </div>
 
       <Switch>
         <Route path={`${path}/create`}>
-          <CreateProject />
+          <CreateProject user={user} />
         </Route>
       </Switch>
     </>
