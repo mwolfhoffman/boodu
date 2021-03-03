@@ -13,6 +13,7 @@ import {
 } from "react-router-dom";
 import CreateProject from "./create-project";
 import asyncForEach from "../assets/js/async-foreach";
+import Project from "./project";
 
 export default function () {
   let location = useLocation();
@@ -89,7 +90,9 @@ export default function () {
             {projects.map((p) => {
               return (
                 <div key={p.id}>
-                  <span>{p.name}</span>
+                  <Link to={`${url}/${p.id}`}>
+                    <span>{p.name}</span>
+                  </Link>
                 </div>
               );
             })}
@@ -100,6 +103,9 @@ export default function () {
       <Switch>
         <Route path={`${path}/create`}>
           <CreateProject user={user} projects={projects} />
+        </Route>
+        <Route path={`${path}/:id`}>
+          <Project user={user} />
         </Route>
       </Switch>
     </>
