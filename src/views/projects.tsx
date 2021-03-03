@@ -36,7 +36,6 @@ export default function () {
       projects.push(data[0]);
     });
     setProjects((p) => (p = projects));
-    console.log(projects);
   };
 
   const getProjectIds = async () => {

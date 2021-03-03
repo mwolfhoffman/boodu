@@ -14,9 +14,7 @@ export default function (props) {
       .select("*")
       .filter("table_id", "eq", props.table.id);
     if (data) {
-      console.log("TableItems ", data);
       setTableItems((t) => (t = data));
-      console.log("table items state ", tableItems);
     }
   };
 
@@ -26,7 +24,6 @@ export default function (props) {
 
   const createNewColumn = async (e: any) => {
     e.preventDefault();
-    console.log(newColumnName, newColumnType);
     const { data, error } = await supabase.from("table_item").insert({
       table_id: props.table.id,
       name: newColumnName,

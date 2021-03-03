@@ -15,7 +15,6 @@ export default function (props) {
       .select("id, name")
       .filter("id", "eq", id);
     if (data) {
-      console.log(data);
       setProject((p) => (p = data[0]));
     }
   };
@@ -26,14 +25,12 @@ export default function (props) {
       .select("id, name")
       .filter("project_id", "eq", id);
     if (data) {
-      console.log(data);
       setTables((t) => (t = data));
     }
   };
 
   const createTable = async (e: any) => {
     e.preventDefault();
-    console.log("creating table...");
     const { data, error } = await supabase
       .from("table")
       .insert({ name: newTableName, project_id: id });

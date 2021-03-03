@@ -11,7 +11,6 @@ export default function () {
   useEffect(() => {
     const checkUser = async () => {
       const user = await supabase.auth.user();
-      console.log(user);
       if (!user) {
         history.push("/login");
       }
