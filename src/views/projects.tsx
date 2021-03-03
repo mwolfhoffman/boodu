@@ -12,12 +12,13 @@ import {
   useRouteMatch,
 } from "react-router-dom";
 import CreateProject from "./create-project";
+import asyncForEach from "../assets/js/async-foreach";
 
 export default function () {
   let location = useLocation();
   let { path, url } = useRouteMatch();
   let [user, setUser] = useState<User | undefined>();
-  let [projectIds, setProjectIds] = useState<string[]>([]);
+  let [projects, setProjects] = useState<any[]>([]);
 
   const getUser = async () => {
     const res = await supabase.auth.user();
@@ -25,7 +26,16 @@ export default function () {
   };
 
   const getProjects = async (projectIds) => {
-    const { data, error } = await supabase.from("project").select("id, name");
+    let projects: any[] = [];
+    await asyncForEach(projectIds, async (id) => {
+      const { data, error } = await supabase
+        .from("project")
+        .select("id, name")
+        .filter("id", "eq", id);
+      projects.push(data[0]);
+    });
+    setProjects((p) => (p = projects));
+    console.log(projects);
   };
 
   const getProjectIds = async () => {
@@ -63,22 +73,33 @@ export default function () {
       <div className="content">
         <div className="row">
           <div className="col">
-            {/* TODO: List organization links */}
-            You Have {projectIds.length || "0"} Projects.
+            <h2> You Have {projects.length || "0"} Projects. </h2>
           </div>
         </div>
-        {!location?.pathname.includes("create") ? (
+        {!location?.pathname.includes("create") && projects?.length < 2 ? (
           <div className="row">
             <div className="col">
               Create A Project. <Link to={`${url}/create`}>Click Here</Link>
             </div>
           </div>
         ) : null}
+
+        {projects && projects.length > 0 ? (
+          <div className="row">
+            {projects.map((p) => {
+              return (
+                <div key={p.id}>
+                  <span>{p.name}</span>
+                </div>
+              );
+            })}
+          </div>
+        ) : null}
       </div>
 
       <Switch>
         <Route path={`${path}/create`}>
-          <CreateProject user={user} />
+          <CreateProject user={user} projects={projects} />
         </Route>
       </Switch>
     </>
