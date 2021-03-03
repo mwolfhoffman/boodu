@@ -1,5 +1,7 @@
 # Boodu
 
+[![React-App-CI](https://github.com/mwolfhoffman/react-jack/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/mwolfhoffman/boodu/actions/workflows/main.yml)
+
 This is a POC project where I am experimenting with React + Supabase (an open source Firebase alternative built on top of postgreSQL).
 
 I am able to use Supabase's OAuth, create confirmation emails on sign up, and log users in. 
