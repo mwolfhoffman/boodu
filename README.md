@@ -6,9 +6,8 @@ This is a POC project where I am experimenting with React + Supabase (an open so
 
 I am able to use Supabase's OAuth, create confirmation emails on sign up, and log users in. 
 
-I think the plan is to create a real time collaborative data mapping tool. More on that to come. 
+This is a very simple DB mapping tool. It is really just a POC for starting with Supabase. It doesn't use any of the real-time functionality yet. 
 
-I also want to add github actions for CI/CD
 
 ## To Run: 
 
