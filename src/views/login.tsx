@@ -33,7 +33,11 @@ function Login() {
   return (
     <div className="container">
       {errorMessage ? <div className="alert">{errorMessage}</div> : null}
-      <h2>Login</h2>
+
+      <div className="header">
+        <h1> Boodu</h1>
+      </div>
+
       <form onSubmit={(event) => loginLocal(event)}>
         <div className="container">
           <label htmlFor="uname">

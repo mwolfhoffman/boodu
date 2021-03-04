@@ -30,7 +30,9 @@ function Login() {
     <div className="container">
       {successMessage ? <div className="alert success">{successMessage}</div> : null}
       {errorMessage ? <div className="alert">{errorMessage}</div> : null}
-      <h2>Signup</h2>
+      <div className="header">
+        Sign Up
+      </div>
       <form onSubmit={(event) => signUpLocal(event)}>
         <div className="container">
           <label htmlFor="uname">
@@ -68,10 +70,6 @@ function Login() {
 
         <div className="container" style={{ backgroundColor: "#f1f1f1" }}>
           {/* <button type="button" className="cancelbtn">Cancel</button> */}
-          <span className="psw">
-            {" "}
-            <Link to="/signup"> Sign Up</Link>
-          </span>
         </div>
       </form>
     </div>

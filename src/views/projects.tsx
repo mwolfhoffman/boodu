@@ -67,15 +67,13 @@ export default function () {
       <Navbar />
       <div className="header">
         <h1>Projects</h1>
-        <p>Manage Your Projects.</p>
+        <p className="header-subtext">Manage Your Projects.</p>
       </div>
 
-      <div className="content">
-        <div className="row">
+      <div className="w3-container">
           <div className="col">
             <h2> You Have {projects.length || "0"} Projects. </h2>
           </div>
-        </div>
         {!location?.pathname.includes("create") && projects?.length < 2 ? (
           <div className="row">
             <div className="col">
@@ -85,17 +83,17 @@ export default function () {
         ) : null}
 
         {projects && projects.length > 0 ? (
-          <div className="row">
+          <ul className="w3-ul">
             {projects.map((p) => {
               return (
-                <div key={p.id}>
+                <li key={p.id}>
                   <Link to={`${url}/${p.id}`}>
                     <span>{p.name}</span>
                   </Link>
-                </div>
+                </li>
               );
             })}
-          </div>
+          </ul>
         ) : null}
       </div>
 
