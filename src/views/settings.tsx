@@ -5,6 +5,7 @@ export default function () {
     <>
       <Navbar />
       <h3>Settings</h3>
+      <p>Coming Soon... probably.</p>
     </>
   );
 }

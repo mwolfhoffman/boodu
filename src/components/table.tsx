@@ -1,10 +1,11 @@
+import "../assets/styles/table.scss";
 import supabase from "../supabase";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 export default function (props) {
   let { id }: any = useParams();
-  let [tableItems, setTableItems] = useState([]);
+  let [tableItems, setTableItems] = useState<any[] | []>([]);
   let [newColumnName, setNewColumnName] = useState("");
   let [newColumnType, setNewColumnType] = useState("Bool");
 
@@ -14,7 +15,7 @@ export default function (props) {
       .select("*")
       .filter("table_id", "eq", props.table.id);
     if (data) {
-      setTableItems((t) => (t = data));
+      setTableItems((t: any[]) => (t = data));
     }
   };
 
@@ -42,21 +43,23 @@ export default function (props) {
 
   return (
     <>
-      <div className="w3-panel w3-card w3-light-grey">
-        <h3>{props.table.name}</h3>
-        <div className="w3-container w3-white">
-          <p>
-            <ul className="w3-ul w3-card-4" style={{width:'50%'}}>
-              {tableItems.map((column:any)=>{
-                return(
-                  <li>{column.name} : { column.type}</li>
-                )
-              })}
-            </ul>
-          </p>
-        </div>
-        {/* <p>A list displayed as a card.</p> */}
-      </div>
+      <h2>{props.table.name}</h2>
+
+      <table>
+        {tableItems?.length ? (
+          <>
+            {tableItems?.map((t) => {
+              return (
+                <tr>
+                  <td>{t.name}</td>
+                  <td>{t.type}</td>
+                  <td></td>
+                </tr>
+              );
+            })}
+          </>
+        ) : <p>No columns yet...</p>}
+      </table>
 
       {/* <div>
         <form onSubmit={(event: any) => createNewColumn(event)}>

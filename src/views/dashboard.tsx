@@ -24,7 +24,7 @@ export default function () {
       <h1>Dashboard</h1>
 
       <div className="content">
-        Sup
+        <p>Hi! Not much going on here yet. Click the Projects tab to map some data!</p>
       </div>
     </>
   );
