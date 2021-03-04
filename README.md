@@ -8,6 +8,7 @@ I am able to use Supabase's OAuth, create confirmation emails on sign up, and lo
 
 This is a very simple DB mapping tool. It is really just a POC for starting with Supabase. It doesn't use any of the real-time functionality yet. 
 
+I added Tailwind CSS because I thought it would be quick and easy to learn and so far I hate it. For now I left the config in there. It's a hog. 
 
 ## To Run: 
 
