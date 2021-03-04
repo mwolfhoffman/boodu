@@ -48,7 +48,7 @@ export default function (props) {
 
   return (
     <>
-      <h2>Project: {project?.name} </h2>
+    <div className="w3-round w3-teal w3-margin-top"><h2>Project: {project?.name}</h2> </div>
 
       <form onSubmit={(event: any) => createTable(event)}>
         <input

@@ -42,23 +42,23 @@ export default function (props) {
 
   return (
     <>
-      <h3>{props.table.name}</h3>
-
-      {tableItems?.length ? (
-        <div>
-          {tableItems.map((c: any) => {
-            return (
-              <div key={c.id}>
-                {c.name} : {c.type}
-              </div>
-            );
-          })}
+      <div className="w3-panel w3-card w3-light-grey">
+        <h3>{props.table.name}</h3>
+        <div className="w3-container w3-white">
+          <p>
+            <ul className="w3-ul w3-card-4" style={{width:'50%'}}>
+              {tableItems.map((column:any)=>{
+                return(
+                  <li>{column.name} : { column.type}</li>
+                )
+              })}
+            </ul>
+          </p>
         </div>
-      ) : (
-        <p>You have no columns in this table yet.</p>
-      )}
+        {/* <p>A list displayed as a card.</p> */}
+      </div>
 
-      <div>
+      {/* <div>
         <form onSubmit={(event: any) => createNewColumn(event)}>
           <input
             type="text"
@@ -84,7 +84,7 @@ export default function (props) {
           </select>
           <button type="submit">Submit</button>
         </form>
-      </div>
+      </div> */}
     </>
   );
 }
