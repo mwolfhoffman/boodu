@@ -14,6 +14,7 @@ import {
 import CreateProject from "./create-project";
 import asyncForEach from "../assets/js/async-foreach";
 import Project from "./project";
+import Tabs from '../components/tabs';
 
 export default function () {
   let location = useLocation();
@@ -62,40 +63,22 @@ export default function () {
     getProjectIds();
   }, [user]);
 
-  return (
-    <>
-      <Navbar />
-      <div className="header">
-        <h1>Projects</h1>
-        <p className="header-subtext">Manage Your Projects.</p>
-      </div>
+  const openTab = (event: any, projectId: string) => {
+    event.preventDefault();
+    debugger;
+  };
 
-      <div className="w3-container">
-          <div className="col">
-            <h2> You Have {projects.length || "0"} Projects. </h2>
-          </div>
-        {!location?.pathname.includes("create") && projects?.length < 2 ? (
-          <div className="row">
-            <div className="col">
-              Create A Project. <Link to={`${url}/create`}>Click Here</Link>
-            </div>
-          </div>
-        ) : null}
+  return(
+  <>
+  <Navbar/>
 
-        {projects && projects.length > 0 ? (
-          <ul className="w3-ul">
-            {projects.map((p) => {
-              return (
-                <li key={p.id}>
-                  <Link to={`${url}/${p.id}`}>
-                    <span>{p.name}</span>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        ) : null}
-      </div>
+  <div className="header">
+    Projects
+  </div>
+
+    <div className="container">
+        <Tabs items={projects} />
+    </div>
 
       <Switch>
         <Route path={`${path}/create`}>
@@ -105,6 +88,6 @@ export default function () {
           <Project user={user} />
         </Route>
       </Switch>
-    </>
-  );
+  </>
+  )
 }

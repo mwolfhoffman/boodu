@@ -13,7 +13,7 @@ export default function (props) {
     const { data, error } = await supabase
       .from("project")
       .select("id, name")
-      .filter("id", "eq", id);
+      .filter("id", "eq", props.project.id);
     if (data) {
       setProject((p) => (p = data[0]));
     }
@@ -23,7 +23,7 @@ export default function (props) {
     const { data, error } = await supabase
       .from("table")
       .select("id, name")
-      .filter("project_id", "eq", id);
+      .filter("project_id", "eq", props.project.id);
     if (data) {
       setTables((t) => (t = data));
     }
@@ -48,9 +48,7 @@ export default function (props) {
 
   return (
     <>
-    <div className="w3-round w3-teal w3-margin-top"><h2>Project: {project?.name}</h2> </div>
-
-      <form onSubmit={(event: any) => createTable(event)}>
+      {/* <form onSubmit={(event: any) => createTable(event)}>
         <input
           type="text"
           placeholder="Enter Table Name"
@@ -60,7 +58,7 @@ export default function (props) {
           }}
         />
         <button type="submit">Create Table</button>
-      </form>
+      </form> */}
 
       <div>
         {tables?.length ? (
