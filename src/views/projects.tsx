@@ -63,11 +63,6 @@ export default function () {
     getProjectIds();
   }, [user]);
 
-  const openTab = (event: any, projectId: string) => {
-    event.preventDefault();
-    debugger;
-  };
-
   return(
   <>
   <Navbar/>

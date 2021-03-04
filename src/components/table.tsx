@@ -60,7 +60,7 @@ export default function (props) {
       <table>
         {tableItems?.map((t) => {
           return (
-            <tr>
+            <tr key={t.id}>
               <td>{t.name}</td>
               <td>{t.type}</td>
               <td>

@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import Project from "../views/project";
 
 export default function (props) {
-
   function openTab(evt: any, cityName: string) {
     // Declare all variables
     var i, tabcontent, tablinks;
@@ -35,6 +34,7 @@ export default function (props) {
         {props.items.map((item: any) => {
           return (
             <button
+              key={item.id}
               className="tablinks"
               onClick={(event: any) => openTab(event, item.id)}
             >
@@ -46,7 +46,7 @@ export default function (props) {
 
       {props.items.map((item: any) => {
         return (
-          <div id={item.id} className="tabcontent">
+          <div id={item.id} className="tabcontent" key={item.id}>
             <h3>{item.name}</h3>
             <Project project={item} />
           </div>

@@ -30,17 +30,21 @@ export default function (props) {
   };
 
   const createTable = async (e: any) => {
+    debugger;
     e.preventDefault();
     const { data, error } = await supabase
       .from("table")
-      .insert({ name: newTableName, project_id: id });
-    setNewTableName((t) => (t = ""));
+      .insert({ name: newTableName, project_id: props.project.id });
+    if (data) {
+      fetchData();
+      setNewTableName((t) => (t = ""));
+    }
   };
 
-  const fetchData = async()=>{
-      await getProject();
-      await getTables();
-  }
+  const fetchData = async () => {
+    await getProject();
+    await getTables();
+  };
 
   useEffect(() => {
     fetchData();
@@ -48,32 +52,35 @@ export default function (props) {
 
   return (
     <>
-      {/* <form onSubmit={(event: any) => createTable(event)}>
-        <input
-          type="text"
-          placeholder="Enter Table Name"
-          value={newTableName}
-          onChange={(event: any) => {
-            setNewTableName((t) => (t = event.target.value));
-          }}
-        />
-        <button type="submit">Create Table</button>
-      </form> */}
-
       <div>
-        {tables?.length ? (
-          <div>
-              <h3> Tables: </h3>
-            {
-                tables.map((t:any)=>{
-                    return (<Table key={t.id} table={t} />)
-                })
-            }
-
-          </div>
-        ) : (
-          <p>You currently have no tables for this project.</p>
-        )}
+        <div>
+          <h3>
+            {" "}
+            Tables:
+            <table>
+              <tr>
+                <td>
+                  <input
+                    type="text"
+                    placeholder="New Table name"
+                    value={newTableName}
+                    onChange={(event: any) => {
+                      setNewTableName((t) => (t = event.target.value));
+                    }}
+                  />
+                </td>
+                <td>
+                  <button onClick={(event: any) => createTable(event)}>
+                    Create Table
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </h3>
+          {tables.map((t: any) => {
+            return <Table key={t.id} table={t} />;
+          })}
+        </div>
       </div>
     </>
   );
