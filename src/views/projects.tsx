@@ -14,7 +14,7 @@ import {
 import CreateProject from "./create-project";
 import asyncForEach from "../assets/js/async-foreach";
 import Project from "./project";
-import Tabs from '../components/tabs';
+import Tabs from "../components/tabs";
 
 export default function () {
   let location = useLocation();
@@ -63,17 +63,17 @@ export default function () {
     getProjectIds();
   }, [user]);
 
-  return(
-  <>
-  <Navbar/>
+  return (
+    <>
+      <Navbar />
 
-  <div className="header">
-    Projects
-  </div>
+      <div className="header">Projects</div>
 
-    <div className="container">
+      {projects?.length < 2 ? <div><CreateProject user={user}/></div> : null}
+
+      <div className="container">
         <Tabs items={projects} />
-    </div>
+      </div>
 
       <Switch>
         <Route path={`${path}/create`}>
@@ -83,6 +83,6 @@ export default function () {
           <Project user={user} />
         </Route>
       </Switch>
-  </>
-  )
+    </>
+  );
 }
